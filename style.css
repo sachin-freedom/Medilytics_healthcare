@@ -1,0 +1,532 @@
+/* ── RESTORE DEFAULT CURSOR on all dashboard pages ── */
+*, *::before, *::after { cursor: auto !important; }
+a, button, [role="button"], .stButton > button,
+select, input, label { cursor: pointer !important; }
+input[type="text"], input[type="password"],
+textarea { cursor: text !important; }
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ══════════════════════════════
+   DARK THEME (default)
+══════════════════════════════ */
+:root,
+html[data-theme="dark"] {
+  --bg-base:             #020817;
+  --bg-card:             #0d1b2e;
+  --bg-sidebar:          #060f1e;
+  --border:              rgba(255,255,255,0.07);
+  --text-primary:        #EFF6FF;
+  --text-muted:          #94A3B8;
+  --text-dim:            #475569;
+  --gold:                #FFD700;
+  --gold-dim:            rgba(255,215,0,0.12);
+  --gold-glow:           rgba(255,215,0,0.35);
+  --cyan:                #00E5FF;
+  --red:                 #FF5E5E;
+  --green:               #00FF87;
+  --purple:              #A78BFA;
+  --chart-bg:            #0d1b2e;
+  --chart-grid:          rgba(255,255,255,0.05);
+  --chart-font:          #EFF6FF;
+  --card-bg-a:           rgba(255,255,255,0.04);
+  --card-bg-b:           rgba(255,255,255,0.01);
+  --input-bg:            rgba(15,34,64,0.85);
+  --divider:             rgba(255,215,0,0.09);
+  --shadow:              0 4px 20px rgba(0,0,0,0.45);
+  --sidebar-text:        #CBD5E1;
+  --sidebar-btn-bg:      rgba(255,255,255,0.04);
+  --sidebar-btn-border:  rgba(255,255,255,0.09);
+}
+
+/* ══════════════════════════════
+   LIGHT THEME
+══════════════════════════════ */
+html[data-theme="light"] {
+  --bg-base:             #F1F5F9;
+  --bg-card:             #FFFFFF;
+  --bg-sidebar:          #1A2744;
+  --border:              rgba(0,0,0,0.09);
+  --text-primary:        #0F172A;
+  --text-muted:          #475569;
+  --text-dim:            #94A3B8;
+  --gold:                #A07800;
+  --gold-dim:            rgba(160,120,0,0.09);
+  --gold-glow:           rgba(160,120,0,0.28);
+  --cyan:                #0369A1;
+  --red:                 #DC2626;
+  --green:               #15803D;
+  --purple:              #6D28D9;
+  --chart-bg:            #FFFFFF;
+  --chart-grid:          rgba(0,0,0,0.05);
+  --chart-font:          #0F172A;
+  --card-bg-a:           rgba(0,0,0,0.015);
+  --card-bg-b:           rgba(0,0,0,0.005);
+  --input-bg:            #FFFFFF;
+  --divider:             rgba(0,0,0,0.08);
+  --shadow:              0 2px 12px rgba(0,0,0,0.07);
+  --sidebar-text:        #CBD5E1;
+  --sidebar-btn-bg:      rgba(255,255,255,0.06);
+  --sidebar-btn-border:  rgba(255,255,255,0.12);
+}
+
+/* ══════════════════════════════
+   SMOOTH TRANSITIONS
+══════════════════════════════ */
+.stApp,
+.stApp *,
+section[data-testid="stSidebar"],
+section[data-testid="stSidebar"] * {
+  transition:
+    background-color 0.38s ease,
+    color 0.38s ease,
+    border-color 0.38s ease,
+    box-shadow 0.38s ease !important;
+}
+
+.metric-box:hover,
+div[data-testid="stPlotlyChart"]:hover,
+.stButton button:hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease !important;
+}
+
+* { box-sizing: border-box; }
+
+/* ══════════════════════════════
+   MAIN APP BACKGROUND
+══════════════════════════════ */
+.stApp {
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Inter', sans-serif;
+}
+
+html[data-theme="light"] [data-testid="stAppViewContainer"],
+html[data-theme="light"] [data-testid="stMainBlockContainer"],
+html[data-theme="light"] [data-testid="block-container"] {
+  background-color: var(--bg-base) !important;
+}
+
+/* ══════════════════════════════
+   SIDEBAR — always dark navy, both themes
+══════════════════════════════ */
+section[data-testid="stSidebar"] {
+  background: var(--bg-sidebar) !important;
+  border-right: 1px solid rgba(255,215,0,0.10) !important;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.30);
+}
+
+section[data-testid="stSidebar"] * { color: var(--sidebar-text) !important; }
+
+section[data-testid="stSidebar"] img {
+  display: block;
+  margin: 0 auto 2px;
+}
+
+/* Sidebar nav buttons */
+section[data-testid="stSidebar"] .stButton button {
+  background: var(--sidebar-btn-bg) !important;
+  color: var(--sidebar-text) !important;
+  border: 1px solid var(--sidebar-btn-border) !important;
+  border-radius: 5px !important;
+  height: 2.55em !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.9px !important;
+  text-transform: uppercase !important;
+  position: relative; overflow: hidden;
+  box-shadow: none !important;
+}
+
+section[data-testid="stSidebar"] .stButton button::before {
+  content: '';
+  position: absolute; left: -100%; top: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.09), transparent);
+  transition: left 0.4s ease;
+}
+section[data-testid="stSidebar"] .stButton button:hover::before { left: 100%; }
+
+section[data-testid="stSidebar"] .stButton button:hover {
+  border-color: #FFD700 !important;
+  color: #FFD700 !important;
+  transform: translateX(3px) !important;
+  box-shadow: none !important;
+}
+
+/* ══════════════════════════════
+   GLOBAL BUTTONS
+══════════════════════════════ */
+.stButton button {
+  background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  height: 2.85em !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 3px 10px rgba(99,102,241,0.28) !important;
+}
+
+.stButton button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.48) !important;
+}
+
+/* ══════════════════════════════
+   INPUTS & SELECTS
+══════════════════════════════ */
+.stTextInput input {
+  background: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.stTextInput input:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 2px var(--gold-dim) !important;
+}
+
+.stSelectbox div[data-baseweb="select"] {
+  background: var(--input-bg) !important;
+  border-radius: 6px !important;
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="light"] .stSelectbox div[data-baseweb="select"],
+html[data-theme="light"] .stSelectbox div[data-baseweb="select"] * {
+  color: var(--text-primary) !important;
+  background: var(--input-bg) !important;
+}
+
+/* ══════════════════════════════
+   TYPOGRAPHY
+══════════════════════════════ */
+h1 {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: var(--gold) !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  text-align: left !important;
+  margin-bottom: 2px !important;
+}
+
+h2, h3 {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+}
+
+/* ══════════════════════════════
+   PAGE HEADER
+══════════════════════════════ */
+.page-header {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+
+.ph-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ph-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ══════════════════════════════
+   CHART TITLE
+══════════════════════════════ */
+.chart-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 18px 0 6px 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* ══════════════════════════════
+   KPI METRIC CARD
+══════════════════════════════ */
+.metric-box {
+  background: linear-gradient(145deg, var(--card-bg-a), var(--card-bg-b));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px 12px;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="light"] .metric-box {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+
+.metric-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.metric-box:hover::after { opacity: 1; }
+
+.metric-box:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--gold-dim);
+}
+
+.metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.metric-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-top: 6px;
+}
+
+.metric-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.mv-gold   { color: var(--gold);   }
+.mv-red    { color: var(--red);    }
+.mv-green  { color: var(--green);  }
+.mv-cyan   { color: var(--cyan);   }
+.mv-purple { color: var(--purple); }
+
+/* ══════════════════════════════
+   INSIGHT BOX
+══════════════════════════════ */
+.insight-box {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  background: var(--gold-dim);
+}
+
+.insight-box.red {
+  border-left-color: var(--red);
+  background: rgba(255,94,94,0.07);
+}
+
+html[data-theme="light"] .insight-box.red {
+  background: rgba(220,38,38,0.05);
+}
+
+.insight-box.green {
+  border-left-color: var(--green);
+  background: rgba(0,255,135,0.06);
+}
+
+html[data-theme="light"] .insight-box.green {
+  background: rgba(22,163,74,0.05);
+}
+
+.insight-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.insight-box.red   .insight-title { color: var(--red); }
+.insight-box.green .insight-title { color: var(--green); }
+
+/* ══════════════════════════════
+   ROLE BADGE
+══════════════════════════════ */
+.role-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.rb-cfo  { background: rgba(255,215,0,0.12);   color: #FFD700 !important; border-color: #FFD700; }
+.rb-rcm  { background: rgba(0,229,255,0.10);   color: #00E5FF !important; border-color: #00E5FF; }
+.rb-dept { background: rgba(0,255,135,0.10);   color: #00FF87 !important; border-color: #00FF87; }
+.rb-ins  { background: rgba(167,139,250,0.10); color: #A78BFA !important; border-color: #A78BFA; }
+
+/* ══════════════════════════════
+   PLOTLY CHART WRAPPER
+══════════════════════════════ */
+div[data-testid="stPlotlyChart"] {
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--chart-bg) !important;
+  overflow: hidden !important;
+}
+
+div[data-testid="stPlotlyChart"]:hover {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 18px var(--gold-dim) !important;
+}
+
+/* ══════════════════════════════
+   DATAFRAME
+══════════════════════════════ */
+[data-testid="stDataFrame"] {
+  background: var(--bg-card) !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+}
+
+html[data-theme="light"] [data-testid="stDataFrame"] iframe {
+  filter: none;
+}
+
+/* ══════════════════════════════
+   NATIVE STREAMLIT METRICS
+══════════════════════════════ */
+[data-testid="stMetric"] {
+  background: linear-gradient(145deg, var(--card-bg-a), var(--card-bg-b)) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  padding: 14px !important;
+}
+
+html[data-theme="light"] [data-testid="stMetric"] {
+  background: #FFFFFF !important;
+}
+
+[data-testid="stMetric"]:hover { border-color: var(--gold) !important; }
+
+[data-testid="stMetricLabel"] {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 10.5px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: var(--text-muted) !important;
+}
+
+[data-testid="stMetricValue"] {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+}
+
+/* ══════════════════════════════
+   DIVIDER
+══════════════════════════════ */
+hr { border-color: var(--divider) !important; }
+
+/* ══════════════════════════════
+   SECTION LABEL
+══════════════════════════════ */
+.section-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+/* ══════════════════════════════
+   TABS
+══════════════════════════════ */
+.stTabs [data-baseweb="tab-list"] {
+  background: var(--bg-card) !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--border) !important;
+  padding: 3px !important;
+  gap: 2px;
+}
+
+.stTabs [data-baseweb="tab"] {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.5px !important;
+  color: var(--text-muted) !important;
+  border-radius: 4px !important;
+}
+
+.stTabs [aria-selected="true"] {
+  background: var(--gold-dim) !important;
+  color: var(--gold) !important;
+  border-bottom: 2px solid var(--gold) !important;
+}
+
+/* ══════════════════════════════
+   SCROLLBAR
+══════════════════════════════ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ══════════════════════════════
+   ALERTS
+══════════════════════════════ */
+.stAlert { border-radius: 8px !important; }
+
+/* ══════════════════════════════
+   COLUMN STRETCH
+══════════════════════════════ */
+div[data-testid="column"] { align-items: stretch !important; }

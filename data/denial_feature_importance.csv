@@ -1,0 +1,12 @@
+Feature,Coefficient
+Claim_Amount,-0.00189506
+Documentation_Delay_Days,0.097967329
+Length_of_Stay,0.012465787
+Previous_Denial_Count,0.179355313
+Department_Emergency,-0.003659667
+Department_General Medicine,-0.00197577
+Department_Neurology,-0.035319496
+Department_Orthopedics,0.008856177
+Insurance_Type_Government,0.609305558
+Insurance_Type_Private,-0.354811885
+Insurance_Type_Self-Pay,-1.409386702
